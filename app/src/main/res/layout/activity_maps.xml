@@ -1,0 +1,115 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        map:uiZoomControls="true"
+        map:uiCompass = "true"
+        class="com.google.android.gms.maps.SupportMapFragment" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_tap"
+                android:text="点击的位置坐标："
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:minLines="4"/>
+
+            <TextView
+                android:id="@+id/text_camera"
+                android:text="当前的位置坐标："
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:minLines="4"/>
+
+            <Button
+                android:id="@+id/btn_current_location"
+                android:text="当前位置"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/btn_custom_loaction"
+                android:text="火星坐标定位"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/btn_place_picker"
+                android:text="地点推荐(插件)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/btn_current_places"
+                android:text="当前附近Places（API）"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/btn_id_places"
+                android:text="id附近Places（API）"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"/>
+
+
+            <Button
+                android:id="@+id/btn_snapshot"
+                android:text="拍照"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"/>
+
+            <ImageView
+                android:id="@+id/img_snapshot"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/common_full_open_on_phone"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/btn_location_by_latLng"
+                android:text="根据经纬度获取地点"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/btn_location_search"
+                android:text="地点搜索"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/btn_location_city"
+                android:text="根据经纬度获取城市"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</FrameLayout>
