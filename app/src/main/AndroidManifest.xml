@@ -5,7 +5,7 @@
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality. 
+         location permissions for the 'MyLocation' functionality.
     -->
 
 
@@ -47,15 +47,21 @@
         <activity
             android:name=".main.MapsActivity"
             android:label="@string/title_activity_maps">
-
         </activity>
         <activity android:name=".nearbysearch.NearbySearchActivity">
+        </activity>
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".MapActivity"></activity>
+        <activity android:name=".GoogleClientActivity"></activity>
+        <activity android:name=".StartByActivity"></activity>
+        <activity android:name=".PlacesActivity"></activity>
+        <activity android:name=".WebActivity"></activity>
     </application>
 
 </manifest>

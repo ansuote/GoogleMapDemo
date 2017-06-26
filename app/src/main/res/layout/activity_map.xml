@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:map="http://schemas.android.com/apk/res-auto">
+
+    <HorizontalScrollView
+        android:id="@+id/layout_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_switch_location"
+                android:text="@string/map_btn_switch_location"
+                style="@style/SmallBtnStyle"/>
+
+            <Button
+                android:id="@+id/btn_switch_zoom_controls"
+                android:text="@string/map_btn_switch_zoom_controls"
+                style="@style/SmallBtnStyle"/>
+
+            <Button
+                android:id="@+id/btn_switch_zoom_gestures"
+                android:text="@string/map_btn_switch_zoom_gestures"
+                style="@style/SmallBtnStyle"/>
+
+            <Button
+                android:id="@+id/btn_switch_scroll_gestures"
+                android:text="@string/map_btn_switch_scroll_gestures"
+                style="@style/SmallBtnStyle"/>
+
+            <Button
+                android:id="@+id/btn_switch_compass"
+                android:text="@string/map_btn_switch_compass"
+                style="@style/SmallBtnStyle"/>
+
+            <Button
+                android:id="@+id/btn_switch_rotate"
+                android:text="@string/map_btn_switch_rotate"
+                style="@style/SmallBtnStyle"/>
+
+            <Button
+                android:id="@+id/btn_marker_add"
+                android:text="@string/map_btn_marker_add"
+                style="@style/SmallBtnStyle"/>
+
+            <Button
+                android:id="@+id/btn_marker_clear"
+                android:text="@string/map_btn_marker_clear"
+                style="@style/SmallBtnStyle"/>
+
+            <Button
+                android:id="@+id/btn_camera_listener"
+                android:text="@string/map_btn_camera_listener"
+                style="@style/SmallBtnStyle"/>
+
+            <Button
+                android:id="@+id/btn_click_listener"
+                android:text="@string/map_btn_click_listener"
+                style="@style/SmallBtnStyle"/>
+
+            <Button
+                android:id="@+id/btn_take_snapshot"
+                android:text="@string/map_btn_take_snapshot"
+                style="@style/SmallBtnStyle"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <fragment
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        map:uiZoomControls="true"
+        map:uiCompass = "true"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_below="@id/layout_btn"/>
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <Button
+        android:id="@+id/btn_get_city_by_latlng"
+        android:text="@string/web_btn_get_city_by_latlng"
+        style="@style/NormalBtnStyle"/>
+
+    <Button
+        android:id="@+id/btn_nearby_places"
+        android:text="@string/web_btn_nearby_places"
+        style="@style/NormalBtnStyle"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/text_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:hint="@string/client_text_hint"
+            android:gravity="center"/>
+
+    </ScrollView>
+</LinearLayout>

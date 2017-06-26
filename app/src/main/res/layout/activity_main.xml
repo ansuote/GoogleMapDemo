@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.lkl.ansuote.demo.googlemapdemo.MainActivity"
+    android:layout_width="match_parent">
+
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_map"
+            android:text="@string/main_btn_map"
+            style="@style/NormalBtnStyle"/>
+
+        <Button
+            android:id="@+id/btn_client"
+            android:text="@string/main_btn_client"
+            style="@style/NormalBtnStyle"/>
+
+        <Button
+            android:id="@+id/btn_start_activity"
+            android:text="@string/main_btn_start_activity"
+            style="@style/NormalBtnStyle"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/divider_color"/>
+
+        <Button
+            android:id="@+id/btn_places"
+            android:text="@string/main_btn_places"
+            style="@style/NormalBtnStyle"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/divider_color"/>
+
+        <Button
+            android:id="@+id/btn_web_api"
+            android:text="@string/main_btn_web_api"
+            style="@style/NormalBtnStyle"/>
+
+    </LinearLayout>
+</ScrollView>
