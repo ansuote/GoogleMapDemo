@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.lkl.ansuote.demo.googlemapdemo.base.util;
+package com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.util;
 
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
-import static com.lkl.ansuote.demo.googlemapdemo.base.util.MathUtil.EARTH_RADIUS;
-import static com.lkl.ansuote.demo.googlemapdemo.base.util.MathUtil.arcHav;
-import static com.lkl.ansuote.demo.googlemapdemo.base.util.MathUtil.havDistance;
-import static com.lkl.ansuote.demo.googlemapdemo.base.util.MathUtil.wrap;
+import static com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.util.MathUtil.EARTH_RADIUS;
+import static com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.util.MathUtil.arcHav;
+import static com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.util.MathUtil.havDistance;
+import static com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.util.MathUtil.wrap;
 import static java.lang.Math.PI;
 import static java.lang.Math.abs;
 import static java.lang.Math.asin;

@@ -10,12 +10,12 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.lkl.ansuote.demo.googlemapdemo.base.mode.PlaceBean;
-import com.lkl.ansuote.demo.googlemapdemo.base.mode.geocode.AddressComponent;
-import com.lkl.ansuote.demo.googlemapdemo.base.mode.geocode.GeocodeBean;
-import com.lkl.ansuote.demo.googlemapdemo.base.mode.places.NearbyPlaceBean;
+import com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.PlaceBean;
+import com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.geocode.AddressComponent;
+import com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.geocode.GeocodeBean;
+import com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.places.NearbyPlaceBean;
+import com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.util.GoogleMapUrlUtil;
 import com.lkl.ansuote.demo.googlemapdemo.base.util.HttpUtils;
-import com.lkl.ansuote.demo.googlemapdemo.base.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +56,7 @@ public class WebActivity extends AppCompatActivity {
      * @param longitude
      */
     private void getCityByLatlngWeb(double latitude, double longitude) {
-        String urlString = Util.getGoogleMapUrl(latitude, longitude);
+        String urlString = GoogleMapUrlUtil.getGoogleMapUrl(latitude, longitude);
         if (URLUtil.isNetworkUrl(urlString)) {
             new GeocodeTask().execute(urlString);
         }
@@ -70,7 +70,7 @@ public class WebActivity extends AppCompatActivity {
 
         @Override
         protected com.alibaba.fastjson.JSONObject doInBackground(String... params) {
-            return Util.returnResult(HttpUtils.doGet(params[0]));
+            return GoogleMapUrlUtil.returnResult(HttpUtils.doGet(params[0]));
         }
 
         @Override
@@ -124,7 +124,7 @@ public class WebActivity extends AppCompatActivity {
      * @param longitude
      */
     private void getPlacesByLatLngWeb(double latitude, double longitude) {
-        String url = Util.getGoogleMapPlacesUrl(latitude, longitude);
+        String url = GoogleMapUrlUtil.getGoogleMapPlacesUrl(latitude, longitude);
         if (URLUtil.isNetworkUrl(url)) {
             new NearbyPlacesTask().execute(url);
         }
@@ -134,7 +134,7 @@ public class WebActivity extends AppCompatActivity {
 
         @Override
         protected JSONObject doInBackground(String... params) {
-            return Util.returnResult(HttpUtils.doGet(params[0]));
+            return GoogleMapUrlUtil.returnResult(HttpUtils.doGet(params[0]));
         }
 
         @Override

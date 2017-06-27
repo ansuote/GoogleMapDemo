@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@android:color/white">
+
+        <ImageView
+            android:layout_marginLeft="5dp"
+            android:id="@+id/title_left_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/app_name"
+            android:padding="7dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/btn_btn_back" />
+
+
+        <ImageView
+            android:id="@+id/id_search"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/title_left_button"
+            android:layout_width="18dp"
+            android:layout_height="19dp"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            android:src="@drawable/nearby_places_search" />
+
+
+
+        <TextView
+            android:visibility="visible"
+            android:id="@+id/center_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/right_title_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginRight="15dp">
+
+            <TextView
+                android:id="@+id/right_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_deep_color"
+                android:textSize="16sp"
+                android:text="@string/nearby_places_title_send"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

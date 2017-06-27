@@ -19,7 +19,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
-import com.lkl.ansuote.demo.googlemapdemo.base.util.PermissionUtils;
+import com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.util.PermissionUtils;
 
 import java.util.List;
 import java.util.Locale;

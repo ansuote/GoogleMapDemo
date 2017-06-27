@@ -51,5 +51,17 @@
             android:text="@string/main_btn_web_api"
             style="@style/NormalBtnStyle"/>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/divider_color"/>
+
+        <Button
+            android:id="@+id/btn_nearby_demo"
+            android:text="@string/main_btn_nearby_demo"
+            style="@style/NormalBtnStyle"/>
+
     </LinearLayout>
 </ScrollView>

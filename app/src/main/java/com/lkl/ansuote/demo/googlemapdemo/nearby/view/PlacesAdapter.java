@@ -1,4 +1,4 @@
-package com.lkl.ansuote.demo.googlemapdemo.nearbysearch;
+package com.lkl.ansuote.demo.googlemapdemo.nearby.view;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lkl.ansuote.demo.googlemapdemo.R;
-import com.lkl.ansuote.demo.googlemapdemo.base.mode.PlaceBean;
+import com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.PlaceBean;
 
 import java.util.List;
 

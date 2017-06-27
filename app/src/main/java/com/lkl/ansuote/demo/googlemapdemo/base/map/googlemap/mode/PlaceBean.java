@@ -1,4 +1,4 @@
-package com.lkl.ansuote.demo.googlemapdemo.base.mode;
+package com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode;
 
 /**
  * Created by huangdongqiang on 23/05/2017.

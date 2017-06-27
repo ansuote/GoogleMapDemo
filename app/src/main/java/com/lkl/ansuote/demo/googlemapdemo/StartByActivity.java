@@ -17,7 +17,7 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.location.places.ui.PlacePicker;
-import com.lkl.ansuote.demo.googlemapdemo.base.util.PermissionUtils;
+import com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.util.PermissionUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

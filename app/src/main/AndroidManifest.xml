@@ -48,8 +48,7 @@
             android:name=".main.MapsActivity"
             android:label="@string/title_activity_maps">
         </activity>
-        <activity android:name=".nearbysearch.NearbySearchActivity">
-        </activity>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -62,6 +61,15 @@
         <activity android:name=".StartByActivity"></activity>
         <activity android:name=".PlacesActivity"></activity>
         <activity android:name=".WebActivity"></activity>
+        <activity android:name=".nearbysearch.NearbySearchActivity"></activity>
+        <activity
+            android:name=".nearby.view.NearbyPlacesActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"
+            android:fitsSystemWindows="true"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden">
+        </activity>
     </application>
 
 </manifest>

@@ -24,30 +24,30 @@ import java.util.Map.Entry;
 
 /**
  * 网络请求工具类
- * 
+ *
  * @author Administrator
- * 
+ *
  */
 
 public class HttpUtils {
-	final static int TIME = 15000;// 网络超时时间
+    final static int TIME = 15000;// 网络超时时间
 
-	// 判断请求的图片URL
-	public static String checkPictureUrl(String url) {
-		String flag = "http://www.qingfanqie.com";//正式
-		if (TextUtils.isEmpty(url)) {
-			return "";
-		} else if (url.startsWith("http")) {
-			return url;
-		} else if (url.startsWith("/")) {
-			return flag + url;
-		} else {
-			return flag + "/" + url;
-		}
-	}
+    // 判断请求的图片URL
+    public static String checkPictureUrl(String url) {
+        String flag = "http://www.qingfanqie.com";//正式
+        if (TextUtils.isEmpty(url)) {
+            return "";
+        } else if (url.startsWith("http")) {
+            return url;
+        } else if (url.startsWith("/")) {
+            return flag + url;
+        } else {
+            return flag + "/" + url;
+        }
+    }
 
-	// get请求
-	public static String doGet(String url) {
+    // get请求
+    public static String doGet(String url) {
         String result = null;
         HttpClient client = new DefaultHttpClient();
         HttpGet get = new HttpGet(url);
@@ -69,36 +69,36 @@ public class HttpUtils {
             client.getConnectionManager().shutdown();
         }
         return result;
-	}
+    }
 
-	// post请求
-	public static String doPost(String url, HashMap<String, String> params) {
+    // post请求
+    public static String doPost(String url, HashMap<String, String> params) {
 
-		List<NameValuePair> nameValuePairs = new ArrayList<>();
-		for (Entry<String, String> entry : params.entrySet()) {
-			nameValuePairs.add(new BasicNameValuePair(entry.getKey(), entry
-					.getValue()));
-		}
-		String result = null;
-		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(url);
-		try {
-			post.setEntity(new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8));
-			HttpResponse httpResponse = client.execute(post);
-			// HttpStatus.SC_OK用这个无效 ，直接用200就有效
-			if (httpResponse.getStatusLine().getStatusCode() == 200) {
-				result = EntityUtils.toString(httpResponse.getEntity());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} catch (OutOfMemoryError e) {
-			System.gc();
-			e.printStackTrace();
-		} finally {
-			client.getConnectionManager().shutdown();
-		}
-		return result;
-	}
+        List<NameValuePair> nameValuePairs = new ArrayList<>();
+        for (Entry<String, String> entry : params.entrySet()) {
+            nameValuePairs.add(new BasicNameValuePair(entry.getKey(), entry
+                    .getValue()));
+        }
+        String result = null;
+        HttpClient client = new DefaultHttpClient();
+        HttpPost post = new HttpPost(url);
+        try {
+            post.setEntity(new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8));
+            HttpResponse httpResponse = client.execute(post);
+            // HttpStatus.SC_OK用这个无效 ，直接用200就有效
+            if (httpResponse.getStatusLine().getStatusCode() == 200) {
+                result = EntityUtils.toString(httpResponse.getEntity());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } catch (OutOfMemoryError e) {
+            System.gc();
+            e.printStackTrace();
+        } finally {
+            client.getConnectionManager().shutdown();
+        }
+        return result;
+    }
 
 
 }

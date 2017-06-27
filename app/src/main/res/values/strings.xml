@@ -7,6 +7,7 @@
     <string name="main_btn_start_activity">startActivity方式</string>
     <string name="main_btn_places">Places</string>
     <string name="main_btn_web_api">Web API</string>
+    <string name="main_btn_nearby_demo">实战：附近地点推荐</string>
 
     <string name="map_btn_switch_location">定位按钮</string>
     <string name="map_btn_switch_zoom_controls">缩放按钮</string>
@@ -61,4 +62,8 @@
     <string name="web_btn_get_city_by_latlng_result">当前定位的城市为：\n%1$s</string>
     <string name="web_btn_nearby_places_result">附近地点信息如下：\n%1$s</string>
 
+    <string name="nearby_places_choose_loaction_tip">尚未选中位置</string>
+
+    <string name="nearby_places_title_send">发送</string>
+    <string name="nearby_places_send_result">我已经拿到placeBean和bitmap了</string>
 </resources>

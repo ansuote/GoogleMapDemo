@@ -21,7 +21,7 @@ import com.google.android.gms.location.places.PlaceLikelihood;
 import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
-import com.lkl.ansuote.demo.googlemapdemo.base.util.PermissionUtils;
+import com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.util.PermissionUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

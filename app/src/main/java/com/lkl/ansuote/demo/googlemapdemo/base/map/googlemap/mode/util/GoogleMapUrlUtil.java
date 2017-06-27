@@ -1,4 +1,4 @@
-package com.lkl.ansuote.demo.googlemapdemo.base.util;
+package com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.util;
 
 import android.text.TextUtils;
 
@@ -8,7 +8,7 @@ import com.alibaba.fastjson.JSONObject;
 /**
  * Created by huangdongqiang on 31/05/2017.
  */
-public class Util {
+public class GoogleMapUrlUtil {
     //private static final String GOOGLE_MAP_URL = "http://maps.google.cn/maps/api/geocode/json?language=zh-CN&sensor=true&latlng=%1$s,%2$s";
     private static final String GOOGLE_MAP_URL = "https://maps.google.com/maps/api/geocode/json?language=%1$s&sensor=true&latlng=%2$s,%3$s";
     private static final String GOOGLE_MAP_PLACES_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?language=%1$s&location=%2$s,%3$s&radius=%4$s&type=%5$s&key=%6$s";
@@ -63,5 +63,4 @@ public class Util {
     public static String getGoogleMapPlacesUrl(double latitude, double longitude) {
         return getGoogleMapPlacesUrl(DEFAULT_LANGUAGE, latitude, longitude, DEFAULT_RADIUS, DEFAULT_TYPE, KEY);
     }
-
 }
