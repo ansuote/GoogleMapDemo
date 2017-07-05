@@ -19,6 +19,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
+import com.lkl.ansuote.demo.googlemapdemo.base.Define;
 import com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.util.PermissionUtils;
 
 import java.util.List;
@@ -155,9 +156,7 @@ public class GoogleClientActivity extends AppCompatActivity {
     void clickNearbyPlacesByLatlng() {
         showContentText(getString(R.string.client_text_loading));
         //TEST 测试地点，深圳世界之窗
-        double latitude = 22.5350587;
-        double longitude = 113.9718932;
-        getNearbyPlacesByLatlng(latitude, longitude, MAX_RESULTS);
+        getNearbyPlacesByLatlng(Define.WINDOW_OF_WORLD_LAT, Define.WINDOW_OF_WORLD_LNG, MAX_RESULTS);
     }
 
     /**

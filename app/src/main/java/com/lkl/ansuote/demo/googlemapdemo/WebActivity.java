@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.lkl.ansuote.demo.googlemapdemo.base.Define;
 import com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.PlaceBean;
 import com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.geocode.AddressComponent;
 import com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.geocode.GeocodeBean;
@@ -44,10 +45,7 @@ public class WebActivity extends AppCompatActivity {
     @OnClick(R.id.btn_get_city_by_latlng)
     void clickGetCityByLatlng() {
         //TEST 测试地点，深圳世界之窗
-        double latitude = 22.5350587;
-        double longitude = 113.9718932;
-
-        getCityByLatlngWeb(latitude, longitude);
+        getCityByLatlngWeb(Define.WINDOW_OF_WORLD_LAT, Define.WINDOW_OF_WORLD_LNG);
     }
 
     /**
@@ -160,10 +158,7 @@ public class WebActivity extends AppCompatActivity {
     void clickNearbyPlaces() {
         showContentText(getString(R.string.client_text_loading));
         //TEST 测试地点，深圳世界之窗
-        double latitude = 22.5350587;
-        double longitude = 113.9718932;
-
-        getPlacesByLatLngWeb(latitude, longitude);
+        getPlacesByLatLngWeb(Define.WINDOW_OF_WORLD_LAT, Define.WINDOW_OF_WORLD_LNG);
     }
 
     /**

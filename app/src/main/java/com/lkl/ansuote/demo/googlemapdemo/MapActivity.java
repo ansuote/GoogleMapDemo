@@ -23,12 +23,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.lkl.ansuote.demo.googlemapdemo.R.id.map;
-import static com.lkl.ansuote.demo.googlemapdemo.R.string.map_btn_switch_compass;
-import static com.lkl.ansuote.demo.googlemapdemo.R.string.map_btn_switch_location;
-import static com.lkl.ansuote.demo.googlemapdemo.R.string.map_btn_switch_rotate;
-import static com.lkl.ansuote.demo.googlemapdemo.R.string.map_btn_switch_scroll_gestures;
-import static com.lkl.ansuote.demo.googlemapdemo.R.string.map_btn_switch_zoom_controls;
-import static com.lkl.ansuote.demo.googlemapdemo.R.string.map_btn_switch_zoom_gestures;
 
 /**
  * Map 相关设置
@@ -90,7 +84,7 @@ public class MapActivity extends AppCompatActivity {
                         return false;
                     }
                 }:null);
-                showBtnClickTip(mLocationEnabled, getString(map_btn_switch_location));
+                showBtnClickTip(mLocationEnabled, getString(R.string.map_btn_switch_location));
             }
         }
     }
@@ -120,7 +114,7 @@ public class MapActivity extends AppCompatActivity {
         if (null != uiSettings) {
             uiSettings.setZoomControlsEnabled(mZoomControlsEnabled);
         }
-        showBtnClickTip(mZoomControlsEnabled, getString(map_btn_switch_zoom_controls));
+        showBtnClickTip(mZoomControlsEnabled, getString(R.string.map_btn_switch_zoom_controls));
     }
 
     @OnClick(R.id.btn_switch_zoom_gestures) void clickSwitchZoomGestures() {
@@ -133,7 +127,7 @@ public class MapActivity extends AppCompatActivity {
         if (null != uiSettings) {
             uiSettings.setZoomGesturesEnabled(mZommGesturesEnabled);
         }
-        showBtnClickTip(mZommGesturesEnabled, getString(map_btn_switch_zoom_gestures));
+        showBtnClickTip(mZommGesturesEnabled, getString(R.string.map_btn_switch_zoom_gestures));
     }
 
     @OnClick(R.id.btn_switch_scroll_gestures) void switchScrollGestures() {
@@ -146,7 +140,7 @@ public class MapActivity extends AppCompatActivity {
         if (null != uiSettings) {
             uiSettings.setScrollGesturesEnabled(mScrollGesturesEnabled);
         }
-        showBtnClickTip(mScrollGesturesEnabled, getString(map_btn_switch_scroll_gestures));
+        showBtnClickTip(mScrollGesturesEnabled, getString(R.string.map_btn_switch_scroll_gestures));
     }
 
     @OnClick(R.id.btn_switch_compass)
@@ -160,7 +154,7 @@ public class MapActivity extends AppCompatActivity {
         if (null != uiSettings) {
             uiSettings.setCompassEnabled(mCompassEnabled);
         }
-        showBtnClickTip(mCompassEnabled, getString(map_btn_switch_compass));
+        showBtnClickTip(mCompassEnabled, getString(R.string.map_btn_switch_compass));
 
     }
 
@@ -175,7 +169,7 @@ public class MapActivity extends AppCompatActivity {
         if (null != uiSettings) {
             uiSettings.setRotateGesturesEnabled(mRotateGesturesEnabled);
         }
-        showBtnClickTip(mRotateGesturesEnabled, getString(map_btn_switch_rotate));
+        showBtnClickTip(mRotateGesturesEnabled, getString(R.string.map_btn_switch_rotate));
 
     }
 

@@ -17,6 +17,7 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.lkl.ansuote.demo.googlemapdemo.base.Define;
 import com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.mode.util.PermissionUtils;
 
 import butterknife.ButterKnife;
@@ -47,9 +48,7 @@ public class StartByActivity extends AppCompatActivity {
     @OnClick(R.id.btn_navigation)
     void clickNavigation() {
         //TEST 测试地点，深圳世界之窗
-        double latitude = 22.5350587;
-        double longitude = 113.9718932;
-        startNavigation(latitude, longitude);
+        startNavigation(Define.WINDOW_OF_WORLD_LAT, Define.WINDOW_OF_WORLD_LNG);
     }
 
     @OnClick(R.id.btn_nearby_places)

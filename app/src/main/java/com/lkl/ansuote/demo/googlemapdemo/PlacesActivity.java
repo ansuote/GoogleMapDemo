@@ -128,6 +128,7 @@ public class PlacesActivity extends AppCompatActivity {
 
         if (!checkLocationPermission()) {
             showContentText(getString(R.string.cilent_permission_failed));
+            return;
         }
 
         PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi
@@ -182,7 +183,7 @@ public class PlacesActivity extends AppCompatActivity {
                     @Override
                     public void onResult(PlaceBuffer places) {
                         if (places.getStatus().isSuccess() && places.getCount() > 0) {
-                            final Place myPlace = places.get(0);
+                            Place myPlace = places.get(0);
                             showContentText(getString(R.string.places_btn_get_place_by_place_id_result, String.valueOf(myPlace.getName())));
                         } else {
                             showContentText(getString(R.string.places_no_data));

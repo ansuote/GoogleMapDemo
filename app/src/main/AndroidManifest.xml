@@ -44,11 +44,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
 
-        <activity
-            android:name=".main.MapsActivity"
-            android:label="@string/title_activity_maps">
-        </activity>
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -61,7 +56,6 @@
         <activity android:name=".StartByActivity"></activity>
         <activity android:name=".PlacesActivity"></activity>
         <activity android:name=".WebActivity"></activity>
-        <activity android:name=".nearbysearch.NearbySearchActivity"></activity>
         <activity
             android:name=".nearby.view.NearbyPlacesActivity"
             android:launchMode="singleTop"
