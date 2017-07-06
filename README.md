@@ -20,4 +20,4 @@
 ![](http://op6c410ta.bkt.clouddn.com/google-map-web-api_gifsicle.gif)
 
 ## 实战：附近地点推荐
-![](http://op6c410ta.bkt.clouddn.com/googlemap-custom.gif)
+![](http://op6c410ta.bkt.clouddn.com/googlemap-custom_gifsicle.gif)
