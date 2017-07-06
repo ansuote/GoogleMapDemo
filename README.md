@@ -2,6 +2,8 @@
 
 详情见[我的博客](https://ansuote.github.io/2017/06/26/GoogleMap%20%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/)
 
+[点击此处下载demo](http://op6c410ta.bkt.clouddn.com/GoogleMapDemo)
+
 下面展示了各个模块的gif效果
 
 ## Map 相关
