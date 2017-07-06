@@ -2,7 +2,7 @@
 
 详情见[我的博客](https://ansuote.github.io/2017/06/26/GoogleMap%20%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/)
 
-[点击此处下载demo](http://op6c410ta.bkt.clouddn.com/GoogelMapDemo.apk)
+跑项目的时候，需要更换你自己申请的Key，或者[点击此处下载demo](http://op6c410ta.bkt.clouddn.com/GoogelMapDemo.apk) 直接看效果。
 
 下面展示了各个模块的gif效果
 
