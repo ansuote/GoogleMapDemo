@@ -66,4 +66,12 @@
 
     <string name="nearby_places_title_send">发送</string>
     <string name="nearby_places_send_result">我已经拿到placeBean和bitmap了</string>
+
+    <string name="dialog_gps_title">GPS开关</string>
+    <string name="dialog_gps_msg">请打开GPS开关，确保正确定位</string>
+
+    <string name="chat_location_check_gps_settings_error">GPS设置未开启，定位功能将受到影响</string>
+    <string name="chat_location_gps_doing_tip">正在定位中，请稍候...</string>
+    <string name="ensure">确定</string>
+    <string name="cancel">取消</string>
 </resources>

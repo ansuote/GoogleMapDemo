@@ -52,6 +52,7 @@ public interface MapContract {
     }
 
     interface OnGetCurrentPlacesCallBack{
+        void onStart();
         void onResult(List<PlaceBean> list);
         void onPermissionError();
     }
@@ -93,6 +94,24 @@ public interface MapContract {
     interface OnGetGeocodeByLatLngCallback {
         void onStart();
         void onResutl(GeocodeBean bean);
+        void onError();
+    }
+
+    interface OnCheckGpsSettingsListener{
+        /**
+         * 已经打开了开关
+         */
+        void onSuccess();
+
+        /**
+         * 返回设置定位按钮使能的requestCode
+         * @return requestCode
+         */
+        int getRequestCode();
+
+        /**
+         * 发送错误
+         */
         void onError();
     }
 }

@@ -1,6 +1,7 @@
 package com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap;
 
 import android.Manifest;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Address;
@@ -15,7 +16,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.webkit.URLUtil;
 
 import com.alibaba.fastjson.JSON;
@@ -25,9 +25,14 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStates;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.PlaceLikelihood;
@@ -70,6 +75,7 @@ public class HGoogleMap implements IMap<Location, MarkerOptions, CameraPosition,
     private MapContract.OnMyLocationButtonClickListener mOnMyLocationButtonClickListener;
     private MapContract.OnMapClickListener mOnMapClickListener;
     private MapContract.OnMapLongClickListener mOnMapLongClickListener;
+    private MapContract.OnCheckGpsSettingsListener mOnCheckGpsSettingsListener;
     private MapContract.OnCameraIdleListener mOnCameraIdleListener;
     private MapContract.OnLocationListener<Location> mOnLocationListener;
     private MapContract.OnPoiClickListener<PointOfInterest> mOnPoiClickListener;
@@ -77,6 +83,7 @@ public class HGoogleMap implements IMap<Location, MarkerOptions, CameraPosition,
     private MapContract.OnGetPlacesByLatLngWebCallBack mOnGetPlacesByLatLngWebCallBack;
     private MapContract.OnGetCityByLatlngCallback mOnGetCityByLatlngCallback;
     private MapContract.OnGetGeocodeByLatLngCallback mOnGetGeocodeByLatLngCallback;
+
 
     private boolean mWaitForMapLoaded;  //等待地图加载完再拍快照
     private Geocoder mGeocoder;
@@ -370,11 +377,60 @@ public class HGoogleMap implements IMap<Location, MarkerOptions, CameraPosition,
     }
 
     /**
+     * 检测是否已经打开了定位按钮【位置信息】
+     * 谷歌地图专用
+     * @param listener
+     */
+    @Override
+    public void checkGpsSettings(MapContract.OnCheckGpsSettingsListener listener) {
+        mOnCheckGpsSettingsListener = listener;
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(UPDATE_INTERVAL);
+        locationRequest.setFastestInterval(FASTEST_INTERVAL);
+        LocationSettingsRequest.Builder builder =  new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
+        builder.setAlwaysShow(true);
+        PendingResult<LocationSettingsResult> result =
+                LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
+
+        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+            @Override
+            public void onResult(@NonNull LocationSettingsResult result) {
+                final Status status = result.getStatus();
+                final LocationSettingsStates state = result.getLocationSettingsStates();
+                if (null == mOnCheckGpsSettingsListener) {
+                    return;
+                }
+                switch (status.getStatusCode()) {
+                    case LocationSettingsStatusCodes.SUCCESS:
+                        mOnCheckGpsSettingsListener.onSuccess();
+                        break;
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        try {
+                            // Show the dialog by calling startResolutionForResult(),
+                            // and check the result in onActivityResult().
+                            status.startResolutionForResult(
+                                    mContext, mOnCheckGpsSettingsListener.getRequestCode());
+                        } catch (IntentSender.SendIntentException e) {
+                            // Ignore the error.
+                            mOnCheckGpsSettingsListener.onError();
+                        }
+                        break;
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        mOnCheckGpsSettingsListener.onError();
+                        break;
+                }
+            }
+        });
+    }
+
+    /**
      * 注册位置改变接口，在 onConnected 之后才能调用
      */
     @Override
     public void regLocationUpdates(final MapContract.OnLocationListener<Location> listener) {
         mOnLocationListener = listener;
+
         mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(UPDATE_INTERVAL)
@@ -458,7 +514,10 @@ public class HGoogleMap implements IMap<Location, MarkerOptions, CameraPosition,
     @Override
     public void enableMyLocation(boolean enable) {
         if (null != mMap) {
-            if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //ACCESS_COARSE_LOCATION 允许 API 利用 WiFi 或移动蜂窝数据（或同时利用两者）来确定设备位置
+            //ACCESS_FINE_LOCATION 允许 API 利用包括全球定位系统 (GPS) 在内的可用位置提供商以及 WiFi 和移动蜂窝数据尽可能精确地确定位置
+            //if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
             mMap.setMyLocationEnabled(enable);
@@ -467,7 +526,8 @@ public class HGoogleMap implements IMap<Location, MarkerOptions, CameraPosition,
 
     @Override
     public Location getLastLocation() {
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        //if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return null;
         }
         Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(
@@ -494,6 +554,11 @@ public class HGoogleMap implements IMap<Location, MarkerOptions, CameraPosition,
 
     @Override
     public void getCurrentPlaces(final int maxSize, final MapContract.OnGetCurrentPlacesCallBack callBack) {
+        if (null == callBack) {
+            return;
+        }
+
+        callBack.onStart();
 
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             callBack.onPermissionError();
@@ -535,7 +600,7 @@ public class HGoogleMap implements IMap<Location, MarkerOptions, CameraPosition,
 
         List<PlaceBean> list = new ArrayList<>();
         try {
-            List<Address> addressList =  mGeocoder.getFromLocation(latitude, longitude, maxResults);
+            List<Address>  addressList =  mGeocoder.getFromLocation(latitude, longitude, maxResults);
             for (Address address : addressList) {
                 //省
                 String adminArea = address.getAdminArea();
@@ -568,7 +633,6 @@ public class HGoogleMap implements IMap<Location, MarkerOptions, CameraPosition,
             }
 
         } catch (Exception e) {
-            Log.i("lkl", "getPlacesByLatLngInBackground -- error -- " + e.toString());
         }
         return list;
     }
@@ -690,7 +754,7 @@ public class HGoogleMap implements IMap<Location, MarkerOptions, CameraPosition,
                 JSONArray jsonArray = result.getJSONArray("results");
                 if (null != jsonArray) {
                     List<NearbyPlaceBean> list = JSON.parseArray(jsonArray.toString(), NearbyPlaceBean.class);
-                    Log.i("lkl", "list = " + list);
+                    //Log.i("lkl", "list = " + list);
                     List<PlaceBean> resultList = formatList(list, maxResultSize);
 
                     if (null != mOnGetPlacesByLatLngWebCallBack) {

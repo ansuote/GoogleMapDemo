@@ -17,9 +17,10 @@ public abstract class BaseMVPActivity<V, T extends BasePresenter<V>> extends App
 
         initView();
         mPresenter = createPresenter();
+        initVariables(savedInstanceState);
+
         if (null != mPresenter) {
             mPresenter.attachView((V)this);
-            mPresenter.initVariables(savedInstanceState, getIntent());
             mPresenter.onStart();
         }
 
@@ -47,5 +48,5 @@ public abstract class BaseMVPActivity<V, T extends BasePresenter<V>> extends App
     /**
      * 初始化变量
      */
-    //protected abstract void initVariables(Bundle savedInstanceState);
+    protected abstract void initVariables(Bundle savedInstanceState);
 }

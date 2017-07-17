@@ -37,6 +37,8 @@ import com.lkl.ansuote.demo.googlemapdemo.base.util.HttpUtils;
 
 import java.util.List;
 
+import static com.lkl.ansuote.demo.googlemapdemo.nearby.view.NearbyPlacesActivity.REQUEST_CODE_CHECK_GPSSETTINGS;
+
 
 /**
  * Created by huangdongqiang on 22/05/2017.
@@ -56,12 +58,6 @@ public class NearbyPlacesPresenter extends BasePresenter<INearbyPlacesView> {
     private List<PlaceBean> mCurrentPlaces; //暂存地理位置附近的推荐地点，防止重复调用
     private static final int DEFAULT_RADIUS = 250;  //附近地点的查找半径（Web接口查找）
 
-
-    @Override
-    public void initVariables(Bundle savedInstanceState, Intent intent) {
-
-    }
-
     @Override
     public void onStart() {
         if (!isViewAttached()){
@@ -71,8 +67,35 @@ public class NearbyPlacesPresenter extends BasePresenter<INearbyPlacesView> {
         INearbyPlacesView iNearbyPlacesView = getView();
         if (null != iNearbyPlacesView && iNearbyPlacesView instanceof AppCompatActivity) {
             mIMap = new HGoogleMap((AppCompatActivity) iNearbyPlacesView);
+            // onConnected 为事件入口
             regEvent(true);
         }
+    }
+
+    /**
+     * 判断GPS按钮是否打开
+     * @param mIMap
+     * @param context
+     */
+    private void checkGpsSettings(IMap mIMap) {
+        mIMap.checkGpsSettings(new MapContract.OnCheckGpsSettingsListener() {
+            @Override
+            public void onSuccess() {
+                getCurrentPlaces();
+            }
+
+            @Override
+            public int getRequestCode() {
+                return REQUEST_CODE_CHECK_GPSSETTINGS;
+            }
+
+            @Override
+            public void onError() {
+                if (isViewAttached()) {
+                    getView().showCheckGpsSettingsError();
+                }
+            }
+        });
     }
 
     /**
@@ -105,9 +128,7 @@ public class NearbyPlacesPresenter extends BasePresenter<INearbyPlacesView> {
             mIMap.setOnConnectionListener(b ? new MapContract.OnConnectionListener() {
                 @Override
                 public void onConnected(@Nullable Bundle bundle) {
-                    mNearbySearchEnable = false;
-                    getDeviceLocation();
-                    getCurrentPlaces();
+                    checkGpsSettings(mIMap);
                 }
 
                 @Override
@@ -242,15 +263,20 @@ public class NearbyPlacesPresenter extends BasePresenter<INearbyPlacesView> {
      */
     private void getDeviceLocation() {
         Location lastLocation = (Location) mIMap.getLastLocation();
+        double latitude = 0;
+        double longitude = 0;
         if (null != lastLocation) {
-                /*mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                        new LatLng(mLastKnownLocation.getLatitude(),
-                                mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));*/
-            moveToPosition(lastLocation.getLatitude(), lastLocation.getLongitude(), ZOOM_LEVEL);
-            setLastLatitude(lastLocation.getLatitude(), lastLocation.getLongitude());
+            //定位成功
+            latitude = lastLocation.getLatitude();
+            longitude = lastLocation.getLongitude();
+
         } else {
-            //Current location is null. Using defaults
+            //TODO 获取地点失败，使用默认定位地点
+        
         }
+
+        moveToPosition(latitude, longitude, ZOOM_LEVEL);
+        setLastLatitude(latitude, longitude);
     }
 
     /**
@@ -279,17 +305,25 @@ public class NearbyPlacesPresenter extends BasePresenter<INearbyPlacesView> {
         }
 
         mIMap.getCurrentPlaces(MAX_RESULT_SIZE, new MapContract.OnGetCurrentPlacesCallBack() {
+
+            @Override
+            public void onStart() {
+                //尝试初始状态下定位
+                getDeviceLocation();
+            }
+
             @Override
             public void onResult(List<PlaceBean> list) {
                 if (!isViewAttached()) {
                     return;
                 }
 
-                //保存当前地点的推荐数据
-                mCurrentPlaces = list;
+                //二次定位。getCurrentPlaces 完成回调时，已经是准确位置
+                getDeviceLocation();
+
+                setCurrentPlaces(list);
                 refreshListView(list);
                 moveToFirstListItem(list);
-                //保存当前的经纬度，用于判断下次是否超过距离
                 markFirstLatLng(list);
             }
 
@@ -298,6 +332,13 @@ public class NearbyPlacesPresenter extends BasePresenter<INearbyPlacesView> {
 
             }
         });
+    }
+
+    /**
+     * 保存当前地点的推荐数据
+     */
+    private void setCurrentPlaces(List<PlaceBean> list) {
+        mCurrentPlaces = list;
     }
 
     /**
@@ -421,6 +462,17 @@ public class NearbyPlacesPresenter extends BasePresenter<INearbyPlacesView> {
 
     }
 
+    /**
+     * 点击确定打开GPS位置信息按钮的回调
+     */
+    public void onRequestGpsSettings() {
+        if (isViewAttached()) {
+            getView().showGpsDoingTip();
+        }
+
+        getCurrentPlaces();
+    }
+
     class GeocodeTask extends AsyncTask<String, Void, JSONObject> {
         @Override
         protected com.alibaba.fastjson.JSONObject doInBackground(String... params) {
@@ -513,6 +565,7 @@ public class NearbyPlacesPresenter extends BasePresenter<INearbyPlacesView> {
         super.detachView();
         if (null != mIMap) {
             mIMap.enableMyLocation(false);
+            mIMap.regEvent(false);
             mIMap = null;
         }
         mList = null;
@@ -548,7 +601,7 @@ public class NearbyPlacesPresenter extends BasePresenter<INearbyPlacesView> {
      */
     private boolean isOutOfLastPlaces(double fromLat, double fromLng, double toLat, double toLng) {
         double meters = SphericalUtil.computeDistanceBetween(new LatLng(fromLat, fromLng), new LatLng(toLat, toLng));
-        Log.i("lkl", "meters = " + meters);
+        //Log.i("lkl", "meters = " + meters);
         return meters > DEFAULT_RADIUS;
     }
 

@@ -45,4 +45,14 @@ public interface INearbyPlacesView {
     void showChooseLoactionTip();
 
     void moveToFirstListItem();
+
+    /**
+     * 显示GPS未开启提示
+     */
+    void showCheckGpsSettingsError();
+
+    /**
+     * 显示定位中提示
+     */
+    void showGpsDoingTip();
 }

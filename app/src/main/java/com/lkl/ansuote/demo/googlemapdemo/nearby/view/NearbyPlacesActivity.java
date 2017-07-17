@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
@@ -45,15 +45,14 @@ import static com.lkl.ansuote.demo.googlemapdemo.base.map.googlemap.HGoogleMap.L
 public class NearbyPlacesActivity extends BaseMVPActivity<INearbyPlacesView, NearbyPlacesPresenter>
         implements INearbyPlacesView {
 
-    @BindView(R.id.listview)
-    ListView mListView;
+    @BindView(R.id.listview) ListView mListView;
     private PlacesAdapter mPlacesAdapter;
 
 
     private static final int REQUEST_CODE_AUTOCOMPLETE = 2;
     private int PLACE_PICKER_REQUEST = 1;
     private AlertDialog mDialog;
-
+    public static final int REQUEST_CODE_CHECK_GPSSETTINGS = 10;
     @Override
     protected NearbyPlacesPresenter createPresenter() {
         return new NearbyPlacesPresenter();
@@ -68,6 +67,11 @@ public class NearbyPlacesActivity extends BaseMVPActivity<INearbyPlacesView, Nea
         if (null != mListView) {
             mListView.setAdapter(mPlacesAdapter);
         }
+    }
+
+    @Override
+    protected void initVariables(Bundle savedInstanceState) {
+
     }
 
     @Override
@@ -135,7 +139,7 @@ public class NearbyPlacesActivity extends BaseMVPActivity<INearbyPlacesView, Nea
     }
 
     @OnItemClick(R.id.listview) void clickItem(int position) {
-        Log.i("lkl", "clickItem");
+        //Log.i("lkl", "clickItem");
         mPresenter.clickItem(position);
     }
 
@@ -184,6 +188,14 @@ public class NearbyPlacesActivity extends BaseMVPActivity<INearbyPlacesView, Nea
                 // Indicates that the activity closed before a selection was made. For example if
                 // the user pressed the back button.
             }
+        } else if (requestCode == REQUEST_CODE_CHECK_GPSSETTINGS) {
+            if (requestCode == REQUEST_CODE_CHECK_GPSSETTINGS) {
+                if (resultCode == RESULT_OK) {
+                    mPresenter.onRequestGpsSettings();
+                } else {
+                    showCheckGpsSettingsError();
+                }
+            }
         }
     }
 
@@ -225,7 +237,22 @@ public class NearbyPlacesActivity extends BaseMVPActivity<INearbyPlacesView, Nea
     }
 
     @Override
+    public void showCheckGpsSettingsError() {
+        Toast.makeText(this, getString(R.string.chat_location_check_gps_settings_error), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showGpsDoingTip() {
+        Toast.makeText(this, getString(R.string.chat_location_gps_doing_tip), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     protected void onDestroy() {
+
+        mListView = null;
+        mPlacesAdapter = null;
+        mDialog = null;
+
         super.onDestroy();
     }
 

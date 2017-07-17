@@ -209,6 +209,11 @@ public interface IMap<T, M, V, C, L> {
     void setOnCameraMoveStartedListener(MapContract.OnCameraMoveStartedListener listener);
 
     /**
+     * 检测是否已经打开了定位按钮【位置信息】
+     */
+    void checkGpsSettings(MapContract.OnCheckGpsSettingsListener listener);
+
+    /**
      * 手动销毁
      */
     void onDestory();

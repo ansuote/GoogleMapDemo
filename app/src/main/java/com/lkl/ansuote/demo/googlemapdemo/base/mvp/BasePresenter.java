@@ -21,13 +21,6 @@ public abstract class BasePresenter<T> {
     }
 
     /**
-     * 初始化其他Activity传过来的值
-     * @param savedInstanceState
-     * @param intent
-     */
-    public abstract void initVariables(Bundle savedInstanceState, Intent intent);
-
-    /**
      * 让 View 可以设置默认状态
      */
     public abstract void onStart();
@@ -60,6 +53,5 @@ public abstract class BasePresenter<T> {
             mViewRef = null;
         }
     }
-
 
 }
