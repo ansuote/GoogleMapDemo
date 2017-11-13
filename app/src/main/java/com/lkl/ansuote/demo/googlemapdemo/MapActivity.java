@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -30,7 +31,8 @@ import static com.lkl.ansuote.demo.googlemapdemo.R.id.map;
  */
 public class MapActivity extends AppCompatActivity {
     private GoogleMap mMap;
-    private boolean mLocationEnabled;       //使能定位开关按钮
+    private boolean mLocationLayoutEnabled; //使能定位图层按钮
+    private boolean mLocationEnabled;       //使能定位按钮
     private boolean mZoomControlsEnabled;   //使能缩放开关按钮
     private boolean mZommGesturesEnabled;   //使能手势缩放按钮
     private boolean mScrollGesturesEnabled;//使能手势平移
@@ -73,18 +75,32 @@ public class MapActivity extends AppCompatActivity {
             return;
         }
 
+        UiSettings uiSettings = mMap.getUiSettings();
+        if (null != uiSettings) {
+            mLocationEnabled = !mLocationEnabled;
+            uiSettings.setMyLocationButtonEnabled(mLocationEnabled);
+            showBtnClickTip(mLocationEnabled, getString(R.string.map_btn_switch_location));
+        }
+    }
+
+    @OnClick(R.id.btn_switch_location_layout)
+    void clickSwitchLocationLayout() {
+        if (!isMapReady()) {
+            return;
+        }
+
         if (checkLocationPermission()) {
             if (null != mMap) {
-                mLocationEnabled = !mLocationEnabled;
-                mMap.setMyLocationEnabled(mLocationEnabled);
-                mMap.setOnMyLocationButtonClickListener(mLocationEnabled ?new GoogleMap.OnMyLocationButtonClickListener() {
+                mLocationLayoutEnabled = !mLocationLayoutEnabled;
+                mMap.setMyLocationEnabled(mLocationLayoutEnabled);
+                mMap.setOnMyLocationButtonClickListener(mLocationLayoutEnabled ?new GoogleMap.OnMyLocationButtonClickListener() {
                     @Override
                     public boolean onMyLocationButtonClick() {
                         Toast.makeText(MapActivity.this, getString(R.string.map_switch_location_listener_tip), Toast.LENGTH_SHORT).show();
                         return false;
                     }
                 }:null);
-                showBtnClickTip(mLocationEnabled, getString(R.string.map_btn_switch_location));
+                showBtnClickTip(mLocationLayoutEnabled, getString(R.string.map_btn_switch_location_layout));
             }
         }
     }
@@ -237,7 +253,7 @@ public class MapActivity extends AppCompatActivity {
         mMap.setOnCameraMoveListener(mCameraListenerEnabled ? new GoogleMap.OnCameraMoveListener() {
             @Override
             public void onCameraMove() {
-
+                Log.i("lkl", "onCameraMove -- 摄像头移动监听");
             }
         } : null);
 

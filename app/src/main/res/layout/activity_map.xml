@@ -17,6 +17,11 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btn_switch_location_layout"
+                android:text="@string/map_btn_switch_location_layout"
+                style="@style/SmallBtnStyle"/>
+
+            <Button
                 android:id="@+id/btn_switch_location"
                 android:text="@string/map_btn_switch_location"
                 style="@style/SmallBtnStyle"/>

@@ -9,6 +9,7 @@
     <string name="main_btn_web_api">Web API</string>
     <string name="main_btn_nearby_demo">实战：附近地点推荐</string>
 
+    <string name="map_btn_switch_location_layout">定位图层</string>
     <string name="map_btn_switch_location">定位按钮</string>
     <string name="map_btn_switch_zoom_controls">缩放按钮</string>
     <string name="map_btn_switch_zoom_gestures">手势缩放</string>
