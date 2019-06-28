@@ -75,4 +75,5 @@
     <string name="chat_location_gps_doing_tip">正在定位中，请稍候...</string>
     <string name="ensure">确定</string>
     <string name="cancel">取消</string>
+    <string name="geocode_task_error">数据获取错误</string>
 </resources>

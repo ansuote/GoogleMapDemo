@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.webkit.URLUtil;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -75,13 +76,19 @@ public class WebActivity extends AppCompatActivity {
         protected void onPostExecute(com.alibaba.fastjson.JSONObject result) {
             if (null != result) {
                 JSONArray jsonArray = result.getJSONArray("results");
-                if (null != jsonArray) {
+                String errorMsg = result.getString("error_message");
+                if (null == errorMsg || errorMsg.isEmpty()) {
+                    errorMsg = WebActivity.this.getString(R.string.geocode_task_error);
+                }
+                if (null != jsonArray && jsonArray.size() > 0) {
                     Object firstObj = jsonArray.get(0);
                     if (null != firstObj) {
                         GeocodeBean bean = JSON.parseObject(firstObj.toString(), GeocodeBean.class);
                         String city = getLocality(bean);
                         showContentText(getString(R.string.web_btn_get_city_by_latlng_result, city));
                     }
+                } else {
+                    Toast.makeText(WebActivity.this, errorMsg, Toast.LENGTH_LONG).show();
                 }
             }
 
